@@ -2,14 +2,14 @@
 
 namespace Common\Controller;
 
-use Think\Controller;
 
-class HomeBaseController extends Controller {
+
+class HomeBaseController extends AppframeController {
 	public function __construct() {
 		parent::__construct ();
 	}
-	protected function _initialize() {
-		//parent::_initialize ();
+	public function _initialize() {
+		parent::_initialize ();
 		tag ( 'load_func' );
 		$site_options = get_site_options ();
 		$this->assign ( $site_options );
