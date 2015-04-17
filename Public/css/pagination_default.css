@@ -1,0 +1,187 @@
+.pagination {
+	margin: 20px 0
+}
+
+.pagination ul {
+	display: inline-block;
+	*display: inline;
+	margin-bottom: 0;
+	margin-left: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	*zoom: 1;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05)
+}
+
+.pagination ul>li {
+	display: inline
+}
+
+.pagination ul>li>a,.pagination ul>li>span {
+	float: left;
+	padding: 4px 12px;
+	line-height: 20px;
+	text-decoration: none;
+	background-color: #dfdfdf;
+	border: 1px solid transparent;
+	border-left-width: 0
+}
+
+.pagination ul>li>a:hover,.pagination ul>li>a:focus,.pagination ul>.active>a,.pagination ul>.active>span {
+	background-color: #428bca
+}
+
+.pagination ul>.active>a,.pagination ul>.active>span {
+	color: #dfdfdf;
+	cursor: default
+}
+
+.pagination ul>.disabled>span,.pagination ul>.disabled>a,.pagination ul>.disabled>a:hover,.pagination ul>.disabled>a:focus {
+	color: #dfdfdf;
+	cursor: default;
+	background-color: transparent
+}
+
+.pagination ul>li:first-child>a,.pagination ul>li:first-child>span {
+	border-left-width: 1px;
+	-webkit-border-bottom-left-radius: 0;
+	border-bottom-left-radius: 0;
+	-webkit-border-top-left-radius: 0;
+	border-top-left-radius: 0;
+	-moz-border-radius-bottomleft: 0;
+	-moz-border-radius-topleft: 0
+}
+
+.pagination ul>li:last-child>a,.pagination ul>li:last-child>span {
+	-webkit-border-top-right-radius: 0;
+	border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	border-bottom-right-radius: 0;
+	-moz-border-radius-topright: 0;
+	-moz-border-radius-bottomright: 0
+}
+
+.pagination-centered {
+	text-align: center
+}
+
+.pagination-right {
+	text-align: right
+}
+
+.pagination-large ul>li>a,.pagination-large ul>li>span {
+	padding: 22px 30px;
+	font-size: 17.5px
+}
+
+.pagination-large ul>li:first-child>a,.pagination-large ul>li:first-child>span {
+	-webkit-border-bottom-left-radius: 0;
+	border-bottom-left-radius: 0;
+	-webkit-border-top-left-radius: 0;
+	border-top-left-radius: 0;
+	-moz-border-radius-bottomleft: 0;
+	-moz-border-radius-topleft: 0
+}
+
+.pagination-large ul>li:last-child>a,.pagination-large ul>li:last-child>span {
+	-webkit-border-top-right-radius: 0;
+	border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	border-bottom-right-radius: 0;
+	-moz-border-radius-topright: 0;
+	-moz-border-radius-bottomright: 0
+}
+
+.pagination-mini ul>li:first-child>a,.pagination-small ul>li:first-child>a,.pagination-mini ul>li:first-child>span,.pagination-small ul>li:first-child>span {
+	-webkit-border-bottom-left-radius: 0;
+	border-bottom-left-radius: 0;
+	-webkit-border-top-left-radius: 0;
+	border-top-left-radius: 0;
+	-moz-border-radius-bottomleft: 0;
+	-moz-border-radius-topleft: 0
+}
+
+.pagination-mini ul>li:last-child>a,.pagination-small ul>li:last-child>a,.pagination-mini ul>li:last-child>span,.pagination-small ul>li:last-child>span {
+	-webkit-border-top-right-radius: 0;
+	border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	border-bottom-right-radius: 0;
+	-moz-border-radius-topright: 0;
+	-moz-border-radius-bottomright: 0
+}
+
+.pagination-small ul>li>a,.pagination-small ul>li>span {
+	padding: 2px 10px;
+	font-size: 11.9px
+}
+
+.pagination-mini ul>li>a,.pagination-mini ul>li>span {
+	padding: 2px 6px;
+	font-size: 10.5px
+}
+.pagination ul {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none
+}
+
+.pagination ul>li>a,.pagination ul>li>span {
+	margin-right: 6px;
+	color: #222
+}
+
+.pagination ul>li>a:hover,.pagination ul>li>span:hover {
+	color: #fff;
+	background-color: #222
+}
+
+.pagination ul>li:last-child>a,.pagination ul>li:last-child>span {
+	margin-right: 0
+}
+
+.pagination ul>.active>a,.pagination ul>.active>span {
+	color: #fff
+}
+
+.pagination ul>.disabled>span,.pagination ul>.disabled>a,.pagination ul>.disabled>a:hover {
+	color: #999;
+	background-color: #eee
+}
+
+.pagination>a,.pagination>span {
+	float: left;
+	padding: 4px 12px;
+	margin-right: 6px;
+	line-height: 20px;
+	text-decoration: none;
+	background-color: #dfdfdf;
+	border: 1px solid transparent;
+	border-left-width: 0
+}
+
+.pagination>a:hover,.pagination>a:focus {
+	color: #fff;
+	background-color: #222
+}
+
+.pagination>a:first-child,.pagination>span:first-child {
+	border-left-width: 1px;
+	-webkit-border-bottom-left-radius: 0;
+	border-bottom-left-radius: 0;
+	-webkit-border-top-left-radius: 0;
+	border-top-left-radius: 0;
+	-moz-border-radius-bottomleft: 0;
+	-moz-border-radius-topleft: 0
+}
+
+.pagination>a:last-child,.pagination>span:last-child {
+	-webkit-border-top-right-radius: 0;
+	border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	border-bottom-right-radius: 0;
+	-moz-border-radius-topright: 0;
+	-moz-border-radius-bottomright: 0
+}

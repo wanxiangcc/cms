@@ -1,0 +1,43 @@
+<volist name="list" id="vo"> 
+<php>$smeta=json_decode($vo['smeta'], true); </php>
+<div class="item">
+	<div class="tc-gridbox">
+		<div class="header">
+
+			<if condition="!empty($smeta['thumb'])">
+			<div class="item-image">
+				<a href="{:U('Home/Post/view',array('id'=>$vo['tid']))}"> <img
+					src="{:get_asset_upload_path($smeta['thumb'])}"
+					class="img-responsive" alt="{$vo.post_title}">
+				</a>
+			</div>
+			<else /> </if>
+
+			<h3>
+				<a href="{:U('Home/Post/view',array('id'=>$vo['tid']))}">{$vo.post_title}</a>
+			</h3>
+			<hr>
+		</div>
+		<div class="body">
+			<a href="{:U('Home/Post/view',array('id'=>$vo['tid']))}">{$vo.post_excerpt}</a>
+		</div>
+		<div class="footer">
+			<div class="pull-left">
+				<span class="meta">{$vo.post_date}</span>
+			</div>
+			<div class="pull-right">
+				<a href="javascript:;"><i class="fa fa-eye"></i><span>{$vo.post_hits}</span></a>
+				<a href="{:U('Home/Post/do_like',array('id'=>$vo['object_id']))}"
+					class="J_count_btn"><i class="fa fa-thumbs-up"></i><span
+					class="count">{$vo.post_like}</span></a> <a
+					href="{:U('User/Favorite/do_favorite',array('id'=>$vo['object_id']))}"
+					class="J_favorite_btn" data-title="{$vo.post_title}"
+					data-url="{:U('Home/Post/view',array('id'=>$vo['tid']))}"
+					data-key="{$vo['favorite_key']}"> <i class="fa fa-star-o"></i>
+				</a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+</volist>

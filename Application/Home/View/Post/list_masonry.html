@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{$name} {$seo_title} {$site_name}</title>
+	<meta name="keywords" content="{$seo_keywords}" />
+	<meta name="description" content="{$seo_description}">
+    <include file="Public:head" />
+    <import type='css' file="css.pagination" />
+</head>
+<body>
+<include file="Public:nav" />
+<div class="container">
+	
+	
+    <div class="pg-opt pin">
+        <div class="container">
+            <h2>{$name}</h2>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div>
+             
+             <div id="container">
+             	<div class="grid-sizer"></div>
+             	<include file="list_masonry_data" />
+               </div>
+             <div class="pagination">
+                  {$page}
+             </div>
+        </div>
+    </div>
+    
+    
+    <include file="Public:footer" />
+</div>
+
+    
+<!-- JavaScript -->
+<include file="Public:scripts" />
+ <script src="__ROOT__/Public/js/imagesloaded.pkgd.min.js"></script>
+    <script src="__ROOT__/Public/js/masonry.pkgd.min.js"></script>
+	<script>
+	$(function() {
+		var $container = $('#container');
+		$container.imagesLoaded(function() {
+			$container.masonry({
+				itemSelector : '.item',
+				gutterWidth : 2,
+				isAnimated : true
+			});
+		});
+	
+		
+		//滚动
+		$(window).scroll(
+				function() {
+					// 当滚动到最底部以上100像素时， 加载新内容
+					if ($(document).height() - $(this).scrollTop()
+							- $(this).height() < 100) {
+						ajax_load_data();
+					}
+				});
+		var pre_href;
+		function ajax_load_data() {
+			var href = $('.pagination').find('.next').attr('href');
+			if (href && href != pre_href) {
+				console.log('href = ' + href);
+				pre_href = href;
+		
+				$.ajax({
+					url : href,
+					data : {},
+					dataType : 'json',
+					type : 'post',
+					beforeSend : function() {
+						//show_loading_body();
+					},
+					complete : function() {
+						//show_loading_body();
+					},
+					success : function(data) {
+						if (data.status != undefined && data.status == 'ok') {
+							if (data.html) {
+								var $boxes = $(data.html);
+								$container.append($boxes).masonry('appended',
+										$boxes);
+							}
+		
+							if (data.page) {
+								$('.pagination').html(data.page);
+							}
+						}else{
+							noty({text:data.info,
+	                    		type:'error',
+	                    		layout:'center'
+	                    	});
+						}
+					}
+				});
+			}
+		}
+	});
+	
+</script>
+</body>
+</html>

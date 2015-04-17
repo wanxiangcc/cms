@@ -1,0 +1,65 @@
+<div class="navbar navbar-fixed-top">
+   <div class="navbar-inner">
+     <div class="container">
+       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </a>
+       <a class="brand" href="__ROOT__/"><img src="__ROOT__/Public/images/logo.png"/></a>
+       <div class="nav-collapse collapse" id="main-menu">
+			<ul id="" class="nav">
+				<foreach name="nav_list" item="vo" key="k" >
+				   <li <if condition="$vo.child_count gt 0">class='dropdown'</if> id='menu-item-{$k}'>
+				   		<a href='{$vo.href}' target='{$vo.target}' <if condition="$vo.child_count gt 0">class="dropdown-toggle" data-toggle="dropdown"</if>>
+				    	{$vo.label}<if condition="$vo.child_count gt 0"><b class="caret"></b></if>
+				    	</a>
+				    	<if condition="$vo.child_count gt 0">
+				    		<ul class="dropdown-menu">
+				    		<foreach name="vo['child']" item="vochild" key="child" >
+				    		<li class="" id="menu-item-{$child}"><a href='{$vochild.href}' target='{$vochild.target}'>{$vochild.label}</a></li>
+				    		</foreach>
+				    		</ul>
+				    	</if>
+				   </li>
+				</foreach>
+			</ul>
+			<ul class="nav pull-right" id="main-menu-left">
+			<li class="dropdown">
+			<if condition="$Think.session.user.id gt 0">
+	            <a class="dropdown-toggle user" data-toggle="dropdown" href="#">
+	            <if condition="empty($user['avatar'])">
+	            <img src="__ROOT__/Public/images/headicon.png" class="headicon"/>
+	            <else/>
+	            <img src="{:get_user_avatar_url($user['avatar'])}" class="headicon"/>
+	            </if>
+	            {$user.user_nicename}<b class="caret"></b></a>
+	            <ul class="dropdown-menu pull-right">
+	               <li><a href="{:U('User/Center/index')}"><i class="fa fa-user"></i> &nbsp;个人中心</a></li>
+	               <li class="divider"></li>
+	               <li><a href="{:U('User/Login/logout')}"><i class="fa fa-sign-out"></i> &nbsp;退出</a></li>
+	            </ul>
+	        <else/>
+	            <a class="dropdown-toggle user" data-toggle="dropdown" href="#">
+	           		<img src="__ROOT__/Public/images/headicon.png" class="headicon"/>登录<b class="caret"></b>
+	            </a>
+	            <ul class="dropdown-menu pull-right">
+	               <li><a href="{:U('api/oauth/login',array('type'=>'sina'))}"><i class="fa fa-weibo"></i> &nbsp;微博登录</a></li>
+	               <li><a href="{:U('api/oauth/login',array('type'=>'qq'))}"><i class="fa fa-qq"></i> &nbsp;QQ登录</a></li>
+	               <li><a href="{:U('User/Login/index')}"><i class="fa fa-sign-in"></i> &nbsp;登录</a></li>
+	               <li class="divider"></li>
+	               <li><a href="{:U('User/Register/index')}"><i class="fa fa-user"></i> &nbsp;注册</a></li>
+	            </ul>
+	        </if>
+          	</li>
+		</ul>
+		<div class="pull-right">
+        	<form method="post" class="form-inline" action="{:U('Home/Search/index')}" style="margin:18px 0;">
+				 <input type="text" class="" placeholder="Search" name="keyword" value="{:I('get.keyword')}"/>
+				 <input type="submit" class="btn btn-info" value="Go" style="margin:0"/>
+			</form>
+		</div>
+       </div>
+     </div>
+   </div>
+ </div>

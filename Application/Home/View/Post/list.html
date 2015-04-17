@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{$terms.name} {$seo_title} {$site_name}</title>
+	<meta name="keywords" content="{$seo_keywords}" />
+	<meta name="description" content="{$seo_description}">
+    <include file="Public:head" />
+    <import type='css' file="css.pagination" />
+</head>
+<body>
+<include file="Public:nav" />
+<div class="container tc-main">
+	
+	
+    <div class="pg-opt pin">
+        <div class="container">
+            <h2>{$terms.name}</h2>
+        </div>
+    </div>
+    <div class="row">
+		<div class="span9">
+			<div class="">
+				<volist name="list" id="vo">
+				<php>
+					$smeta=json_decode($vo['smeta'], true);
+				</php>
+				
+				<div class="list-boxes">
+					<h2><a href="{:U('Home/Post/view',array('id'=>$vo['tid']))}">{$vo.post_title}</a></h2>
+					<p>{$vo.post_excerpt}</p>
+					<div>
+						<div class="pull-left">
+							<div class="list-actions">
+							<a href="javascript:void(0);"><i class="fa fa-eye"></i><span>{$vo.post_hits}</span></a>
+							<a href="{:U('Home/Post/do_like',array('id'=>$vo['post_id']))}" class="J_count_btn"><i class="fa fa-thumbs-up"></i><span class="count">{$vo.post_like}</span></a>
+							<a href="{:U('Home/Favorite/do_favorite',array('id'=>$vo['post_id']))}" 
+								class="J_favorite_btn" data-title="{$vo.post_title}" 
+								data-url="{:U('Home/Post/view',array('id'=>$vo['tid']))}"
+								data-key="{$vo['favorite_key']}"
+								>
+								<i class="fa fa-star-o"></i>
+							</a>
+							</div>
+						</div>
+						<a class="btn btn-warning pull-right" href="{:U('Home/Post/view',array('id'=>$vo['tid']))}">查看更多</a>
+					</div>
+				</div>
+				</volist>
+				
+			</div>
+			<div class="pagination">
+					{$page}
+			</div>
+			
+		</div>
+		
+			
+		<include file="right" />	
+    </div>
+    
+    
+    <include file="Public:footer" />
+</div>
+
+    
+<!-- JavaScript -->
+<include file="Public:scripts" />
+</body>
+</html>

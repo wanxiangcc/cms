@@ -1,0 +1,8 @@
+*.log
+.buildpath
+.project
+.settings/*/
+.settings/org.eclipse.php.core.prefs
+*.prefs
+/Application/Runtime/*
+.settings/org.eclipse.wst.common.project.facet.core.xml

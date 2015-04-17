@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{$site_name}</title>
+<meta name="keywords" content="{$site_seo_keywords}" />
+<meta name="description" content="{$site_seo_description}">
+<meta name="author" content="{$author}">
+<include file="./Application/Home/View/Public/head.html" />
+</head>
+
+<body class="body-white">
+	<include file="./Application/Home/View/Public/nav.html" />
+
+	<div class="container tc-main">
+		<div class="row">
+			<div class="span6 offset3">
+				<h2 class="text-center">忘记密码</h2>
+				<form class="form-horizontal J_ajaxForms" action="{:U('User/Password/doforgot')}" method="post">
+					<div class="control-group">
+						<label class="control-label" for="input_username">注册邮箱</label>
+						<div class="controls">
+							<input type="text" id="input_username" name="email" placeholder="请输入注册时的邮箱" class="span3">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input_verify">验证码</label>
+						<div class="controls">
+							<input type="text" id="input_verify" name="verify"  placeholder="请输入验证码" class="span3"><img id="img_randcode"  style="cursor: pointer;" title="点击获取"/>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							<button class="btn btn-primary J_ajax_submit_btn" type="submit">确定</button>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="input_repassword"></label>
+						<div class="controls">
+							<ul class="inline">
+								<li><a href="{:U('User/Login/index')}">现在登录</a></li>
+								<li><a href="{:U('User/Register/index')}">现在注册</a></li>
+							</ul>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<include file="./Application/Home/View/Public/footer.html" />
+
+	</div>
+	<!-- /container -->
+
+	<include file="./Application/Home/View/Public/scripts.html" />
+	<script type="text/javascript">
+	$(function(){
+		var img_url = "{:U('Home/Util/randcode',array('type'=>'forgot_password'))}";
+		var img_url_arr = img_url.split('?');
+		$("#img_randcode").click(function(){
+			$(this).attr('src', img_url_arr.length > 1 ? img_url + '&time='+Math.random() : img_url + '?time='+Math.random());
+		});
+		$("#img_randcode").attr('src',img_url_arr.length > 1 ? img_url + '&time='+Math.random() : img_url + '?time='+Math.random());
+	});
+	</script>
+</body>
+</html>
