@@ -33,6 +33,15 @@ function send_email($to, $subject, $content) {
 		return true;
 	}
 }
+/**
+ *  加解密字符串
+ * 
+ * @param unknown $string        	
+ * @param string $operation        	
+ * @param string $key        	
+ * @param number $expiry        	
+ * @return string
+ */
 function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
 	$ckey_length = 4;
 	
@@ -83,7 +92,7 @@ function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
 }
 /**
  * 加密字符串
- * 
+ *
  * @param unknown $string        	
  * @return string
  */
@@ -92,7 +101,7 @@ function authencode($string) {
 }
 /**
  * 获取相对地址
- * 
+ *
  * @param unknown $url        	
  * @return string|mixed
  */
@@ -112,4 +121,50 @@ function get_relative_url($url) {
 		}
 	}
 	return $url;
+}
+/**
+ * 替代scan_dir的方法
+ *
+ * @param string $pattern
+ *        	检索模式 搜索模式 *.txt,*.doc; (同glog方法)
+ * @param int $flags        	
+ */
+function scan_dir($pattern, $flags = null) {
+	$files = array_map ( 'basename', glob ( $pattern, $flags ) );
+	return $files;
+}
+/**
+ * 清除缓存
+ */
+function clear_cache() {
+	import ( "ORG.Util.Dir" );
+	$dirs = array ();
+	// runtime/
+	$rootdirs = scan_dir ( RUNTIME_PATH . "*" );
+	$noneed_clear = array (".",".." );
+	$rootdirs = array_diff ( $rootdirs, $noneed_clear );
+	foreach ( $rootdirs as $dir ) {
+		
+		if ($dir != "." && $dir != "..") {
+			$dir = RUNTIME_PATH . $dir;
+			if (is_dir ( $dir )) {
+				array_push ( $dirs, $dir );
+				$tmprootdirs = scan_dir ( $dir . "/*" );
+				foreach ( $tmprootdirs as $tdir ) {
+					if ($tdir != "." && $tdir != "..") {
+						$tdir = $dir . '/' . $tdir;
+						if (is_dir ( $tdir )) {
+							array_push ( $dirs, $tdir );
+						}
+					}
+				}
+			} else {
+				@unlink ( $dir );
+			}
+		}
+	}
+	$dirtool = new \Dir ( "" );
+	foreach ( $dirs as $dir ) {
+		$dirtool->del ( $dir );
+	}
 }

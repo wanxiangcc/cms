@@ -14,7 +14,7 @@ class IndexController extends AdminbaseController {
 	}
 	// 后台框架首页
 	public function index() {
-		$this->assign ( "SUBMENU_CONFIG", json_encode ( D ( "Common/Menu" )->menu_json () ) );
+		$this->assign ( "SUBMENU_CONFIG", D ( "Common/Menu" )->get_tree ( 0 ) );
 		$this->display ();
 	}
 }

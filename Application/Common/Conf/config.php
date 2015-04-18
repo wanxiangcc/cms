@@ -31,5 +31,8 @@ return array (
 		'LANG_LIST'        => 'zh-cn', // 允许切换的语言列表 用逗号分隔
 		'VAR_LANGUAGE'     => 'l', // 默认语言切换变量
 		
+		'LOG_RECORD' => true , //日志记录
+		'URL_MODE' => 1,
+		
 ); 
 

@@ -125,7 +125,7 @@ class MenuModel extends CommonModel {
      */
     public function menu_json() {
         $data = $this->get_tree(0);
-        return $data;
+        return json_encode($data);
     }
 
     //取得树形结构的菜单
@@ -161,7 +161,7 @@ class MenuModel extends CommonModel {
                 }
                
             }
-            return $ret;
+            return isset($ret) ? $ret : array();
         }
        
         return false;
