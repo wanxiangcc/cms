@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>登录</title>
+</head>
+<body>
+
+    <form action="{:U('login')}" method="post" class="login-form">
+    <br/><br/><p>&nbsp;&nbsp;&nbsp;&nbsp;没有看到通常的登录框，没有用户名、密码、验证码的登录页，是否觉得怪怪的。<br/>
+    其实，登录页做的事情就是发送用户名、密码到后台,后台效验完用户名、密码后，使用<br/>
+    登录用户的ID号（uid）用 SESSION 传递给auth权限体系，由auth来判断是否有权限访问，<br/>
+    如果有权限，继续；否则跳转到登录页。<br/>
+    退出操作是清空 SESSION ，保证了下次访问必须要重新登录。<br/><br/>
+    本测试可以用：admin&nbsp;&nbsp;test02&nbsp;&nbsp;test03&nbsp;&nbsp; 三个用户登录。<p><br/><br/>
+
+    <button class="login-btn" type="submit" onclick="post_uid01()">
+        <span class="on">使用管理员账号&nbsp;&nbsp;一键登录（username=admin&nbsp;&nbsp;&nbsp;&nbsp;uid=1） </span>
+    </button><br/><br/>
+    <button class="login-btn" type="submit" onclick="post_uid03()">
+        <span class="on">使用其他帐号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一键登录（username=test03&nbsp;&nbsp;&nbsp;&nbsp;uid=3） </span>
+    </button><br/><br/>    
+ 
+    <p>用户名：<input   name="username" id="username"  value="" ></p> 
+    <p>密&nbsp;&nbsp;&nbsp;&nbsp;码：<input   name="password" id="password"  value="" disabled="disabled"></p><br/> 
+    <button class="login-btn" type="submit"  >
+        <span class="on">登 录 </span>
+    </button><br/><br/>    
+    </form>
+
+<script type="text/javascript" charset="utf-8">
+function post_uid01(){  
+    document.getElementById("username").value = "admin"  ;   
+} 
+function post_uid03(){  
+    document.getElementById("username").value = "test03"  ; 
+}   
+ 
+</script>     
+</body>
+</html>
