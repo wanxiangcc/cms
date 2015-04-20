@@ -203,7 +203,8 @@ function auth_check($uid, $name = null, $relation = 'or') {
 	if (empty ( $name )) {
 		$name = strtolower ( MODULE_NAME . "/" . CONTROLLER_NAME . "/" . ACTION_NAME );
 	}
-	$result =  $auth_obj->check ( $name , $uid, 'admin_url' , $relation );
+	//$Auth->check($rule,$uid,'',array('in','1,2'),$mode='url'))
+	$result =  $auth_obj->check ( $name , $uid , $relation );
 	return $result;
 }
 ?>
