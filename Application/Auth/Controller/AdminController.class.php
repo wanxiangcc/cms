@@ -26,7 +26,7 @@ class AdminController extends \Think\Controller {
         if (!$Auth) {
             $Auth       =   new \Think\Auth();
         } 
-        if(!$Auth->check($rule,$uid,array('in','1,2'),$mode='url')){            
+        if(!$Auth->check($rule,$uid,'',array('in','1,2'),$mode='url')){            
             $this->error('没有权限访问本页面!',U ( 'Public/logout' ));
         }   
     }

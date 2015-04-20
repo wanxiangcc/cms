@@ -198,7 +198,7 @@ function check_user_action($object = "", $count_limit = 1, $ip_limit = false, $e
  * @return boolean 通过验证返回true;失败返回false
  */
 function auth_check($uid, $name = null, $relation = 'or') {
-	if(session('ADMIN_ID') == 1) return true;
+	if($uid == 1) return true;
 	$auth_obj = new \Think\Auth();
 	if (empty ( $name )) {
 		$name = strtolower ( MODULE_NAME . "/" . CONTROLLER_NAME . "/" . ACTION_NAME );
