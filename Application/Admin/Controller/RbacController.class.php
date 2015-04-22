@@ -125,26 +125,37 @@ class RbacController extends AdminbaseController {
 		}
 		$group = $this->Auth_group->where ( 'id=' . $group_id )->find ();
 		
+		$select_urls = array();
 		if ($group['rules']) {
 			$map ['id'] = array ('IN',$group['rules'] );
 			$map ['status'] = array ('EQ',1 );
 			$priv_data = $model->where ( $map )->select (); // 获取权限表数据
+			foreach ($priv_data as $k => $v){
+				$select_urls[] = $v['name'];
+			}
 		}
-		$result = $priv_data;
+		$result = $this->initMenu();
+		
+		$result_n = array();
+		foreach ( $result as $k => $v ) {
+			$this_url = strtolower($v['app'].'/'.$v['model'].'/'.$v['action']);
+			$select = in_array($this_url, $select_urls) ? true : false;
+			$result_n[] = array(
+					'id' => $v['id'] , 
+					'pId' => $v['parentid'] , 
+					'name' => $v['name'] ,
+					'url' => $this_url,
+					'checked' => $select,
+					'open' => $select
+			);
+		}
+		
 		foreach ( $result as $n => $t ) {
 			$result [$n] ['checked'] = ($this->_is_checked ( $t, $roleid, $priv_data )) ? ' checked' : '';
-			$result [$n] ['level'] = $this->_get_level ( $t ['id'], $newmenus );
-			$result [$n] ['parentid_node'] = ($t ['parentid']) ? ' class="child-of-node-' . $t ['parentid'] . '"' : '';
-		}echo 1;
-		print_r($result);exit;
-		$str = "<tr id='node-\$id' \$parentid_node>
-                       <td style='padding-left:30px;'>\$spacer<input type='checkbox' name='menuid[]' value='\$id' level='\$level' \$checked onclick='javascript:checknode(this);'> \$name</td>
-	    			</tr>";
-		$menu->init ( $result );
-		$categorys = $menu->get_tree ( 0, $str );
+		}
 		
-		$this->assign ( "categorys", $categorys );
-		$this->assign ( "roleid", $roleid );
+		$this->assign ( "menulist", json_encode($result_n) );
+		$this->assign ( "group_id", $group_id );
 		$this->display ();
 	}
 	
@@ -153,30 +164,33 @@ class RbacController extends AdminbaseController {
 	 */
 	public function authorize_post() {
 		if (IS_POST) {
-			$roleid = intval ( I ( "post.roleid" ) );
-			if (! $roleid) {
+			$group_id = intval ( I ( "post.group_id" ) );
+			if (! $group_id) {
 				$this->error ( "需要授权的角色不存在！" );
 			}
-			if (is_array ( $_POST ['menuid'] ) && count ( $_POST ['menuid'] ) > 0) {
-				$this->auth_access_model = D ( "Common/AuthAccess" );
+			$ck_ids = I ( "post.ck_ids" );
+			if (!empty ( $ck_ids ) ) {
 				$menu_model = M ( "Menu" );
 				$auth_rule_model = M ( "AuthRule" );
-				$this->auth_access_model->where ( array ("role_id" => $roleid,'type' => 'admin_url' ) )->delete ();
-				foreach ( $_POST ['menuid'] as $menuid ) {
-					$menu = $menu_model->where ( array ("id" => $menuid ) )->field ( "app,model,action" )->find ();
+				$menulist = $menu_model->where ( array ("id" => array( 'in' , $ck_ids) ) )->field ( "id,app,model,action" )->select ();
+				$rules_id = array();
+				foreach ( $menulist as $menu ) {
 					if ($menu) {
 						$app = $menu ['app'];
 						$model = $menu ['model'];
 						$action = $menu ['action'];
 						$name = strtolower ( "$app/$model/$action" );
-						$this->auth_access_model->add ( array ("role_id" => $roleid,"rule_name" => $name,'type' => 'admin_url' ) );
+						$auth_rule = $auth_rule_model->where(array('name' => $name ))->find();
+						$rules_id[$auth_rule['id']] = $auth_rule['id'];
 					}
 				}
-				
+				if($rules_id) { 
+					$this->Auth_group->where( array ("id" => $group_id ))->save(array('rules' => implode(',', $rules_id)));
+				}
 				$this->success ( "授权成功！", U ( "Rbac/index" ) );
 			} else {
 				// 当没有数据时，清除当前角色授权
-				$this->auth_access_model->where ( array ("role_id" => $roleid ) )->delete ();
+				$this->Auth_group->where( array ("id" => $group_id ))->save(array('rules' => ''));
 				$this->error ( "没有接收到数据，执行清除授权成功！" );
 			}
 		}
